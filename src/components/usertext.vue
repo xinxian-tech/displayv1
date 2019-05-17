@@ -255,6 +255,8 @@ export default {
     // ①为input设定change事件
     var that = this;
     $input.change(function() {
+      that.sendFile();
+
       //    ②如果value不为空，调用文件加载方法
       if ($(this).val() != "" && that.bo != true) {
         // fileLoad(this);
@@ -271,7 +273,7 @@ export default {
         oFReader.onloadend = function(oFRevent) {
           var src = oFRevent.target.result;
           $.ajax({
-            url: "http://114.115.171.241:8008/emoji2mp3?emoji=%F0%9F%98%82",
+            url: "http://www.geekyiqi.com/geek/public/index.php/api/Index/text",
             type: "GET",
             data: formData,
             cache: false,
@@ -282,7 +284,7 @@ export default {
               that.bo = true;
             },
             success: function(responseStr) {
-              console.log(responseStr);
+              // console.log(responseStr);
               //11成功后的动作
               that.bo = false;
               var filename = name;
@@ -315,9 +317,6 @@ export default {
                   src +
                   " ></img>";
                 that.$store.commit("addMessage", that.content);
-                setTimeout(function() {
-                  that.$store.commit("reply");
-                }, 1000);
               } else {
                 that.content = "其他文件格式未能上传";
                 that.$store.commit("addMessage", that.content);
@@ -332,6 +331,8 @@ export default {
   },
   methods: {
     sendEmoji(id) {
+      this.$store.commit("addMessage", String.fromCodePoint(id));
+
       var self = this;
       var xhr = new XMLHttpRequest();
       xhr.onreadystatechange = function() {
@@ -352,24 +353,28 @@ export default {
       );
       xhr.responseType = "blob";
       xhr.send();
-      /*
-      $.ajax({
-        url:
-          "http://114.115.171.241:8008/emoji2mp3?emoji=" +
-          String.fromCodePoint(id),
-        type: "GET",
-        cache: false,
-        processData: false,
-        contentType: false,
-        beforeSend: function() {
-          console.log("beforeSend");
-        },
-        success: function(response) {
-          console.log("success");
-          self.$store.commit("replymp3", response);
+    },
+    sendFile() {
+      const file = document.getElementById("fileInput1");
+      let formData = new FormData();
+      formData.append("file", file.files[0]);
+      var self = this;
+      var xhr = new XMLHttpRequest();
+      xhr.onreadystatechange = function() {
+        if (this.readyState == 4 && this.status == 200) {
+          console.log(this.response);
+          self.$store.commit(
+            "replyBlob",
+            window.URL.createObjectURL(this.response)
+          );
         }
-      });
-      */
+      };
+      xhr.open(
+        "POST",
+        "http://114.115.171.241:8008/img2mp3?t=" + new Date().getTime()
+      );
+      xhr.responseType = "blob";
+      xhr.send(formData);
     },
     getBq(e) {
       document.getElementById("biaoqing").focus();
@@ -418,11 +423,6 @@ export default {
         this.$store.commit("addMessage", this.content);
         this.content = "";
         this.isBq = false;
-        //模拟回复
-        var that = this;
-        setTimeout(function() {
-          that.$store.commit("reply");
-        }, 1000);
       } else {
         document.getElementById("biaoqing").innerHTML = "";
         this.isBq = false;
