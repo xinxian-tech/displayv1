@@ -1,6 +1,7 @@
 <template>
   <div id="app">
     <top></top>
+    <!-- <audioa message='../src/assets/images/333.mp3'></audioa> -->
     <div id="content">
       <div class="sidebar">
         <card></card>
@@ -54,13 +55,13 @@ export default {
   .sidebar {
     float: left;
     color: #f4f4f4;
-    background-color: #2e3238;
+    background-color:#6EACD1;
     width: 200px;
   }
   .main {
     position: relative;
     overflow: hidden;
-    background-color: #eee;
+    background-color: rgba(255,255,255,0.9);
   }
 }
 </style>

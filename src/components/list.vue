@@ -35,7 +35,7 @@ export default {
 #list {
 	li {
 		padding: 12px 15px;
-		border-bottom: 1px solid #292C33;
+		/*border-bottom: 1px solid #292C33;*/
 		cursor: pointer;
 		&:hover {
 			background-color: rgba(255, 255, 255, 0.03);

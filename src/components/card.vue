@@ -5,7 +5,7 @@
   		<p class="name">{{user.name}}</p>
   	</header>
   	<footer>
-  		<input class="search" type="text" v-model="$store.state.filterKey" placeholder="search user...">
+  		<input class="search" type="text" v-model="$store.state.filterKey" placeholder=" search user...">
   	</footer>
   </div>
 </template>
@@ -39,11 +39,11 @@ export default {
   	font-size: 16px;
   }
   .search {
-  	background: #26292E;
+  	background:#a7d0e3;
   	height: 30px;
   	line-height: 30px;
-  	padding: 0 10px;
-  	border: 1px solid #3a3a3a;
+  	margin-left: 5px;
+  	border: 1px solid #a7d0e3;
   	border-radius: 4px;
   	outline: none;/*鼠标点击后不会出现蓝色边框*/
     color: #FFF;

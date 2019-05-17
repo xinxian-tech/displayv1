@@ -4,11 +4,13 @@
       <img :src='img'>
     </div>
     <div class="t2">Mind Band</div>
-    <div class="t3">login</div>
-    <div class="t4">register</div>
     <div class="t5">
       <img :src="img1">
     </div>
+    <div class="t4">register</div>
+    <div class="t3">login</div>
+    
+    
     <div></div>
   </div>
 </template>
@@ -30,10 +32,10 @@ export default {
 #top {
 	width: 100%;
   height: 80px;
-  background-color:rgba(255,255,255,0.3);
+  background-color:rgba(110,172,209,0.3);
 }
 #top div{
-  float: left;
+  
 }
 .t1{
   width: 60px;
@@ -41,6 +43,7 @@ export default {
   border-radius: 10px;
   margin: 10px 20px 10px 100px;
   overflow: hidden;
+  float: left;
 }
 .t2{
   width: auto;
@@ -49,6 +52,7 @@ export default {
   line-height: 46px;
   margin: 17px 0px;
   cursor:default;
+  float: left;
 }
 .t3{
   width: 80px;
@@ -58,8 +62,9 @@ export default {
   text-align: center;
   border-radius: 5px;
   background-color:rgba(255,255,255,0.6);
-  margin: 20px 0px 20px 800px;
+  margin: 20px 0px 20px;
   cursor:default;
+  float: right;
 }
 .t4{
   width: 100px;
@@ -71,13 +76,15 @@ export default {
   background-color:rgba(255,255,255,0.6);
   margin: 20px 0px 20px 10px;
   cursor:default;
+  float: right;
 }
 .t5{
   width: 50px;
   height: 50px;
   border-radius: 25px;
-  margin: 15px 0px 15px 30px;
+  margin: 15px 100px 15px 30px;
   overflow: hidden;
+  float: right;
 }
 img{
   width: 100%;

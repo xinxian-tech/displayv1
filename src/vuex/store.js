@@ -45,6 +45,13 @@ const store = new Vuex.Store({
 				self:true
 			})
 		},
+    reply (state,msg) {
+      var src = '../src/assets/images/333.mp3'
+      state.sessions[state.currentSessionId-1].messages.push({
+        content:"<audio style='margin-top:10px;' src='"+src+"' controls='controls'></audio>",
+        date: new Date(),
+      })
+    },
     // INIT_DATA (state) {
     //   let data = localStorage.getItem('vue-chat-session');
     //   //console.log(data)

@@ -1,5 +1,5 @@
 <template>
-  <div id="message" v-scroll-bottom="session">
+  <div id="message" v-scroll-bottom="">
   	<ul v-if="currentSessionId==item.id" v-for="item in sessions">
   		<li v-for="entry in item.messages">
   			<p class="time">
@@ -7,7 +7,7 @@
   			</p>
   			<div class="main" :class="{self:entry.self}">
   				<img class="avatar" :src="entry.self ? img : item.user.img" alt="">
-  				<p class="text">{{entry.content}}</p>
+  				<div class="text" v-html='entry.content'></div>
   			</div>
   		</li>
   	</ul>
@@ -49,10 +49,26 @@ export default {
 </script>
 
 <style lang="scss" scoped>
+::-webkit-scrollbar {
+width:9px;
+background-color: #EEEEEE;
+}
+
+/* 滚动槽 */
+::-webkit-scrollbar-track {
+border-radius:10px;
+}
+
+/* 滚动条滑块 */
+::-webkit-scrollbar-thumb {
+border-radius:10px;
+background:#BDBFC5;
+}
+
 #message {
 	padding: 15px;
   max-height: 68%;
-  overflow-y: scroll;
+  overflow-y: auto;
   ul {
   	list-style-type: none;
   	li {
@@ -99,12 +115,14 @@ export default {
       height: 30px;
     }
     .text {
+      text-align: left;
       display: inline-block;
       padding: 0 10px;
       max-width: 80%;
       background-color: #b2e281;
       border-radius: 4px;
       line-height: 30px;
+      word-wrap: break-word;word-break: break-all;overflow: hidden;
     }
   }
 }
