@@ -54,7 +54,7 @@ const store = new Vuex.Store({
     },
     replyBlob(state, src) {
       state.sessions[state.currentSessionId - 1].messages.push({
-        content: "<audio style='margin-top:10px;' src='" + src + "' controls='controls'></audio>",
+        content: "<audio style='margin-top:10px;' src='" + src + "' controls loop></audio>",
         date: new Date(),
       })
     }
