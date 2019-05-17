@@ -119,7 +119,7 @@ background:#BDBFC5;
       display: inline-block;
       padding: 0 10px;
       max-width: 80%;
-      background-color: #b2e281;
+      background-color: #a7d0e3;
       border-radius: 4px;
       line-height: 30px;
       word-wrap: break-word;word-break: break-all;overflow: hidden;
