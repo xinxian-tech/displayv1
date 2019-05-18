@@ -64,12 +64,21 @@
           name="file"
           class="mFileInput"
           style="left:-9999px;position:absolute;"
+          accept=".png, .jpg, .jpeg"
         >
         <img :src="img1">
       </label>
-      <div class="a">
+      <label id="realBtn" class="a" @click="isBq=false">
+        <input
+          type="file"
+          id="fileInput2"
+          name="file2"
+          class="mFileInput"
+          style="left:-9999px;position:absolute;"
+          accept=".wav"
+        >
         <img :src="img2">
-      </div>
+      </label>
       <div class="a" @click="isBq=!isBq">
         <img :src="img3">
       </div>
@@ -254,6 +263,81 @@ export default {
     var $input = $("#fileInput1");
     // ①为input设定change事件
     var that = this;
+
+    $("#fileInput2").change(function() {
+      that.sendFile2();
+
+      if ($(this).val() != "" && that.bo != true) {
+        // fileLoad(this);
+        var formData = new FormData();
+        //⑤获取传入元素的val
+        var name = $(this).val();
+        //⑥获取files
+        var files = $(this)[0].files[0];
+        var oFReader = new FileReader();
+        oFReader.readAsDataURL(files);
+        //⑦将name 和 files 添加到formData中，键值对形式
+        formData.append("file", files);
+        formData.append("name", name);
+        oFReader.onloadend = function(oFRevent) {
+          var src = oFRevent.target.result;
+          $.ajax({
+            url: "http://www.geekyiqi.com/geek/public/index.php/api/Index/text",
+            type: "GET",
+            data: formData,
+            cache: false,
+            processData: false, // ⑧告诉jQuery不要去处理发送的数据
+            contentType: false, // ⑨告诉jQuery不要去设置Content-Type请求头
+            beforeSend: function() {
+              //⑩发送之前的动作
+              that.bo = true;
+            },
+            success: function(responseStr) {
+              // console.log(responseStr);
+              //11成功后的动作
+              that.bo = false;
+              var filename = name;
+              var index = filename.lastIndexOf(".");
+              var ext = filename.substr(index + 1).toLowerCase();
+              var musicType = ["mp3", "ogg", "wav"];
+              var picType = [
+                "bmp",
+                "jpg",
+                "jpeg",
+                "gif",
+                "psd",
+                "png",
+                "tiff",
+                "tga",
+                "eps"
+              ];
+              if (musicType.indexOf(ext) != -1) {
+                //当文件为音频类
+                that.content =
+                  "<audio style='margin-top:10px;' src='" +
+                  src +
+                  "' controls='controls'></audio>";
+                console.log(that.content);
+                that.$store.commit("addMessage", that.content);
+              } else if (picType.indexOf(ext) != -1) {
+                //当文件为图片类
+                that.content =
+                  "<img style='margin-top:10px;width:100%;height:100%' src=" +
+                  src +
+                  " ></img>";
+                that.$store.commit("addMessage", that.content);
+              } else {
+                that.content = "其他文件格式未能上传";
+                that.$store.commit("addMessage", that.content);
+              }
+            }
+          });
+        };
+      } else {
+        console.log("2");
+      }
+    });
+
     $input.change(function() {
       that.sendFile();
 
@@ -372,6 +456,28 @@ export default {
       xhr.open(
         "POST",
         "http://114.115.171.241:8008/img2mp3?t=" + new Date().getTime()
+      );
+      xhr.responseType = "blob";
+      xhr.send(formData);
+    },
+    sendFile2() {
+      const file = document.getElementById("fileInput2");
+      let formData = new FormData();
+      formData.append("file", file.files[0]);
+      var self = this;
+      var xhr = new XMLHttpRequest();
+      xhr.onreadystatechange = function() {
+        if (this.readyState == 4 && this.status == 200) {
+          console.log(this.response);
+          self.$store.commit(
+            "replyBlob",
+            window.URL.createObjectURL(this.response)
+          );
+        }
+      };
+      xhr.open(
+        "POST",
+        "http://114.115.171.241:8008/humming2mp3?t=" + new Date().getTime()
       );
       xhr.responseType = "blob";
       xhr.send(formData);
