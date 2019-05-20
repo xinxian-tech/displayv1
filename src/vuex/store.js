@@ -14,17 +14,20 @@ const store = new Vuex.Store({
         img: '../src/assets/images/2.png'
       },
       messages: [{
-        content: 'Hey, I\'v took some music shots with drone, enjoy!',
+        content: 'Hey, I\'v took some music shots with drone, enjoy! ',
+        date: now
+      }, {
+        content: 'How is the day? Select an emoji from belowing! ',
         date: now
       }]
     }, {
       id: 2,
       user: {
-        name: '猫猫',
+        name: 'Miba',
         img: '../src/assets/images/3.jpg'
       },
       messages: [{
-        content: 'Hi，我是吉祥物哦',
+        content: 'Hi, I am Miba, cat of Mind Band! ',
         date: now
       }]
     }],
