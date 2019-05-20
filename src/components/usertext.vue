@@ -17,6 +17,7 @@
         <!--img :src="'https://res.wx.qq.com/mpres/htmledition/images/icon/emotion/'+i+'.gif'"-->
       </div>
     </div>
+
     <div class="wait" v-if="bo">
       <div class="spinner">
         <div class="spinner-top">
@@ -84,13 +85,13 @@
       </div>
     </div>
     <!-- <div style="height: 1px"></div> -->
-    <div id="biaoqing" contenteditable="true" @keyup.enter="addMessage"></div>
+    <!-- div id="biaoqing" contenteditable="true" @keyup.enter="addMessage"></div-->
     <!-- <textarea  v-model="content"  style="height: 80px;width: 580px;font-size: 15px"></textarea> -->
-    <div style="width: 100%;height: 45px;background-color: white;margin-top: 0px">
+    <!--div style="width: 100%;height: 45px;background-color: white;margin-top: 0px">
       <div class="send" @click="addMessage">
         <img :src="img4">
       </div>
-    </div>
+    </div-->
   </div>
 </template>
 
@@ -321,7 +322,7 @@ export default {
   bottom: 0;
   right: 0;
   width: 100%;
-  height: 30%;
+  height: auto;
   border-top: solid 1px #ddd;
   background-color: white;
   box-sizing: border-box;
